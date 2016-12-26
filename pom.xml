@@ -5,4 +5,11 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>demystify-cdi</name>
   <description>Code demonstrating approach to decouple and inject your components with CDI (Context and Dependency Injection) in your Java SE and Java EE applications.</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>javax.enterprise</groupId>
+  		<artifactId>cdi-api</artifactId>
+  		<version>1.2</version>
+  	</dependency>
+  </dependencies>
 </project>
