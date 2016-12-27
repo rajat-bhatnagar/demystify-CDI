@@ -30,8 +30,14 @@ public class CDIApplication {
 		
 		Set<Bean<?>> beans = beanManager.getBeans(BookService.class);
 		
+		/*
+		 * Return beans discovered by the container
+		 */
 		Bean<?> bean = beanManager.resolve(beans);
 		
+		/*
+		 * Obtains a contextual reference for a certain bean type of the bean.
+		 */
 		BookService bookService = (BookService)beanManager.getReference(bean, BookService.class,
 				beanManager.createCreationalContext(bean));
 		
