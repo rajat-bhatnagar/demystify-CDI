@@ -7,7 +7,7 @@ public class BookService {
 	private NumberGenerator numberGenerator;
 	
 	public BookService(NumberGenerator numberGenerator) {
-		super();
+		super();	
 		this.numberGenerator = numberGenerator;
 	}
 
