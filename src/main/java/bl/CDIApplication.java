@@ -1,31 +1,52 @@
 package bl;
 
+import java.util.Set;
+
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import org.apache.deltaspike.cdise.api.CdiContainer;
+import org.apache.deltaspike.cdise.api.CdiContainerLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import bl.service.BookService;
-import bl.service.NumberGenerator;
-import bl.service.impl.IsbnGenerator;
-import bl.service.impl.IssnGenerator;
-import data.Book;
 
 public class CDIApplication {
 	static Logger logger = LoggerFactory.getLogger(CDIApplication.class);
 	
 	public static void main(String[] args) {
-		
-		NumberGenerator isbnGenerator = new IsbnGenerator();
-		NumberGenerator issnGenerator = new IssnGenerator();
+
 		/*
-		 * We are changing the NumberGenerator Implementation at runtime
-		 * to enable loose Coupling between BookService and NumberGenerator
+		 * Construct CDIContainer for Weld , as we have added dependency for weld
 		 */
-		BookService bookServiceIsbn = new BookService(isbnGenerator);
-		Book bookWithIsbn = bookServiceIsbn.createBook("Spring in Action");
-		logger.info("bookWithIsbn # "+bookWithIsbn);
+		CdiContainer cdiContainer = CdiContainerLoader.getCdiContainer();
 		
-		BookService bookServiceIssn = new BookService(issnGenerator);
-		Book bookWithIssn = bookServiceIssn.createBook("Groovy in Action");
-		logger.info("bookWithIssn # "+bookWithIssn);
+		/*
+		 * Boot the CDI Container
+		 * This will trigger the classpath scan etc.
+		 */
+		cdiContainer.boot();
+		
+		BeanManager beanManager = cdiContainer.getBeanManager();
+		
+		Set<Bean<?>> beans = beanManager.getBeans(BookService.class);
+		
+		Bean<?> bean = beanManager.resolve(beans);
+		
+		BookService bookService = (BookService)beanManager.getReference(bean, BookService.class,
+				beanManager.createCreationalContext(bean));
+		
+		/*
+		 * Create Books via service as CDI has injected the NumberGenerator dependency for BookServce above
+		 */
+		logger.info("Create Spring Book # "+bookService.createBook("Spring In Action"));
+		logger.info("Create Groovy Book # "+bookService.createBook("Groovy In Action"));
+		logger.info("Create Java 8 Book # "+bookService.createBook("Java 8 In Action"));
+		logger.info("Create Angular Book # "+bookService.createBook("Angular In Action"));
+		
+		/*
+		 * Stop the CDI Container once all processing is completed
+		 */
+		cdiContainer.shutdown();
 	}
 
 }
