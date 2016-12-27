@@ -2,4 +2,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
        version="1.1" bean-discovery-mode="all">
+       <alternatives>
+       <!-- The fully qualified class will override whatever dependency we have injected using a qualifier
+            Note that you need to explicitly specify the Qualifier that needs to be overrided -->
+       		<class>bl.service.impl.MockGenerator</class>
+       </alternatives>
 </beans>
