@@ -3,18 +3,20 @@ package bl.producers;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.logging.Logger;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import bl.qualifiers.CislRoot;
 import bl.qualifiers.CurrentTime;
 
 public class FileProducer {
-	Logger logger = LoggerFactory.getLogger(FileProducer.class);
+	/*
+	 * Injecting the logger containing the className from LoggingProducer
+	 * Note that class name is injected dynamically using the Injection Point API
+	 */
+	@Inject
+	private Logger logger;
 	
 	/*
 	 * Path will be injected here from PathProducer
