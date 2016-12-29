@@ -13,6 +13,6 @@ import javax.inject.Qualifier;
 @Target({FIELD, TYPE, METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Qualifier
-public @interface CurentTime {
+public @interface CurrentTime {
 
 }

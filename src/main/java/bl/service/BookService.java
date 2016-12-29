@@ -2,7 +2,7 @@ package bl.service;
 
 import javax.inject.Inject;
 
-import bl.qualifiers.CurentTime;
+import bl.qualifiers.CurrentTime;
 import bl.qualifiers.Electronic;
 import bl.qualifiers.IssnNumber;
 import data.Book;
@@ -16,7 +16,7 @@ public class BookService {
 	@Inject
 	private long generatedNumberLongPrefix;
 	
-	@Inject @CurentTime
+	@Inject @CurrentTime
 	private long currentTimeMillis;
 	
 	@Inject

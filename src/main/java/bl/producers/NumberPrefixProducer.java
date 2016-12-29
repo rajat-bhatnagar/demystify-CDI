@@ -5,13 +5,13 @@ import java.util.Random;
 
 import javax.enterprise.inject.Produces;
 
-import bl.qualifiers.CurentTime;
+import bl.qualifiers.CurrentTime;
 
 public class NumberPrefixProducer {
 	@Produces
 	private long prefix = Math.abs(new Random().nextLong());
 	
-	@Produces @CurentTime
+	@Produces @CurrentTime
 	private long currentTimeMillis = new Date().getTime();
 	
 	@Produces
