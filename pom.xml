@@ -5,15 +5,36 @@
 	<artifactId>demystify-cdi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demystify-cdi</name>
-	<description>Code demonstrating approach to decouple and inject your components with CDI (Context and Dependency Injection) in your Java SE and Java EE applications.</description>
+	<description>Code demonstrating approach to decouple and inject your components with CDI (Context and Dependency Injection)
+	 in your Java SE and Java EE applications.</description>
 
 	<properties>
 		<version.deltaspike>1.2.1</version.deltaspike>
 		<version.weld>2.2.8.Final</version.weld>
 		<version.cdi>1.2</version.cdi>
+		<!-- Database -->
+		<version.h2>1.4.181</version.h2>
+		<version.derby>10.11.1.1</version.derby>
+		<version.mysql>6.0.5</version.mysql>
 	</properties>
 
 	<dependencies>
+		<!-- Database -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${version.mysql}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${version.h2}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>${version.derby}</version>
+		</dependency>
 		<!-- CDI -->
 		<dependency>
 			<groupId>javax.enterprise</groupId>
