@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import javax.inject.Inject;
 
 import bl.interceptorBindings.Auditable;
+import bl.interceptorBindings.ThreadTracker;
 
 public class FileService {
 	
@@ -17,6 +18,7 @@ public class FileService {
 	 * Applying interceptor on this method via @Auditable interceptor binding
 	 */
 	@Auditable 
+	@ThreadTracker
 	public void write(String text) throws Exception{
 		 Files.write(file, text.getBytes(StandardCharsets.UTF_8));
 	}

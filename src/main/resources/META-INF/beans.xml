@@ -11,5 +11,6 @@
        <!-- By Default Interceptors are not activated , It is required to activate then in deployment descriptor -->
        <interceptors>
        	<class>bl.interceptors.AuditInterceptor</class>
+       	<class>bl.interceptors.ThreadTrackerInterceptor</class>
        </interceptors>
 </beans>

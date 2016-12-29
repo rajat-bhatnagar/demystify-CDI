@@ -3,6 +3,7 @@ package bl.service;
 import javax.inject.Inject;
 
 import bl.interceptorBindings.Auditable;
+import bl.interceptorBindings.ThreadTracker;
 import bl.qualifiers.CurrentTime;
 import bl.qualifiers.Electronic;
 import bl.qualifiers.IssnNumber;
@@ -41,6 +42,7 @@ public class BookService {
 	 * Appliying Interceptor in this method via Interceptor Binding @Auditable
 	 */
 	@Auditable
+	@ThreadTracker
 	public Book createBook(String title){
 		String number = generatedNumberLongPrefix + "-" + generatedNumberStrPrefix + "-" +
 				generatedNumberIntPrefix + "-" + currentTimeMillis + "-"+
