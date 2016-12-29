@@ -7,4 +7,9 @@
             Note that you need to explicitly specify the Qualifier that needs to be overrided -->
        		<class>bl.service.impl.MockGenerator</class>
        </alternatives>
+       
+       <!-- By Default Interceptors are not activated , It is required to activate then in deployment descriptor -->
+       <interceptors>
+       	<class>bl.interceptors.AuditInterceptor</class>
+       </interceptors>
 </beans>
