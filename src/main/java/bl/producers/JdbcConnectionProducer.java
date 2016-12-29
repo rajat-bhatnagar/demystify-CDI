@@ -26,6 +26,7 @@ public class JdbcConnectionProducer {
 	/*
 	 * Disposes will close the database connection once connection is established and is used
 	 */
+	@SuppressWarnings("unused")
 	private void closeConnection(@Disposes @MySqlConnection Connection connection) throws SQLException {
 		connection.close();
 		logger.info("Connection to mysql database is CLOSED");
