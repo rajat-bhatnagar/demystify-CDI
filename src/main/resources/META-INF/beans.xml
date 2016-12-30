@@ -12,5 +12,6 @@
        <interceptors>
        	<class>bl.interceptors.AuditInterceptor</class>
        	<class>bl.interceptors.ThreadTrackerInterceptor</class>
+       	<class>bl.interceptors.LifecycleInterceptor</class>
        </interceptors>
 </beans>

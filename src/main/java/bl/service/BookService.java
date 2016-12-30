@@ -1,14 +1,18 @@
 package bl.service;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import bl.interceptorBindings.Auditable;
+import bl.interceptorBindings.Lifecycle;
 import bl.interceptorBindings.ThreadTracker;
 import bl.qualifiers.CurrentTime;
 import bl.qualifiers.Electronic;
 import bl.qualifiers.IssnNumber;
 import data.Book;
 
+@Lifecycle
+@ApplicationScoped
 public class BookService {
 	
 	/*
