@@ -1,6 +1,8 @@
 package bl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,6 +17,9 @@ import org.slf4j.LoggerFactory;
 import bl.service.BookService;
 import bl.service.FileService;
 import bl.service.MySQLDatabasePingService;
+import bl.service.PurchaseOrderService;
+import data.Book;
+import data.Item;
 
 @ApplicationScoped
 public class CDIApplication {
@@ -25,12 +30,14 @@ public class CDIApplication {
 		/*
 		 * Construct CDIContainer for Weld , as we have added dependency for weld
 		 */
+		
 		CdiContainer cdiContainer = CdiContainerLoader.getCdiContainer();
 		
 		/*
 		 * Boot the CDI Container
 		 * This will trigger the classpath scan etc.
 		 */
+		
 		cdiContainer.boot();
 		
 		BeanManager beanManager = cdiContainer.getBeanManager();
@@ -41,6 +48,8 @@ public class CDIApplication {
 		
 		Set<Bean<?>> dbBeans = beanManager.getBeans(MySQLDatabasePingService.class);
 		
+		Set<Bean<?>> purchaseOrderBeans = beanManager.getBeans(PurchaseOrderService.class);
+		
 		/*
 		 * Return beans discovered by the container
 		 */
@@ -49,6 +58,8 @@ public class CDIApplication {
 		Bean<?> fileBean = beanManager.resolve(fileBeans);
 		
 		Bean<?> dbBean = beanManager.resolve(dbBeans);
+		
+		Bean<?> purchaseOrderBean = beanManager.resolve(purchaseOrderBeans);
 		
 		/*
 		 * Obtains a contextual reference for a certain bean type of the bean.
@@ -62,6 +73,8 @@ public class CDIApplication {
 		MySQLDatabasePingService dbService = (MySQLDatabasePingService)beanManager.getReference(dbBean, MySQLDatabasePingService.class, 
 				beanManager.createCreationalContext(dbBean));
 		
+		PurchaseOrderService purchaseOrderService = (PurchaseOrderService)beanManager.getReference(purchaseOrderBean, PurchaseOrderService.class, 
+				beanManager.createCreationalContext(purchaseOrderBean));
 		/*
 		 * Create File via FileService as CDI has injected the Path directory and the fileName to be created
 		 */
@@ -93,9 +106,11 @@ public class CDIApplication {
 		} catch (SQLException e) {
 			logger.error("Error in executing database statement :: Check Logs for more information");
 			e.printStackTrace();
-		}		/*
+		}
+		
+		/*
 		 * Calling MySQLDatabasePingService to validate dtabase connection is done and disposed off 
-		 * after executing a sql stataement
+		 * after executing a sql statement
 		 */
 		
 		try {
@@ -107,8 +122,19 @@ public class CDIApplication {
 		}
 		
 		/*
+		 * Calling PurchaseOrderService 
+		 */
+		
+		List<Item> items = new ArrayList<>();
+		items.add(new Item(new Book("Spring in Action", "123-879-9989" , 10.3f), 1));
+		items.add(new Item(new Book("Groovy in Action", "123-879-9989", 23.2f), 1));
+		items.add(new Item(new Book("Spock in Action", "123-879-9989", 67.67f), 1));
+		logger.info(" # Puchase Order Service # "+purchaseOrderService.compute(items));
+		
+		/*
 		 * Stop the CDI Container once all processing is completed
 		 */
+		
 		cdiContainer.shutdown();
 	}
 
