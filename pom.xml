@@ -13,7 +13,7 @@
 		<version.weld>2.2.8.Final</version.weld>
 		<version.cdi>1.2</version.cdi>
 		<!-- Database -->
-		<version.h2>1.4.181</version.h2>
+		<version.h2>2.0.206</version.h2>
 		<version.derby>10.11.1.1</version.derby>
 		<version.mysql>6.0.5</version.mysql>
 	</properties>
